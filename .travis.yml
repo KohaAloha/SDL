@@ -1,0 +1,31 @@
+language: perl
+perl:
+  - "5.10"
+  - "5.12"
+  - "5.14"
+  - "5.16"
+  - "5.18"
+
+before_install:
+# install Alien:SDL
+  - sudo apt-get install automake
+  - git clone https://github.com/KohaAloha/Alien-SDL
+  - cd Alien-SDL
+  - git checkout travis
+  - cat ./cpan-deps | cpanm --sudo --notest
+  - perl ./Build.PL --default
+  - ./Build
+  - sudo ./Build install
+  - prove
+# success!!
+
+# install SDL_Perl
+  - cd ..
+  - cpanm --sudo --notest Test::Most Tie::Simple
+  - cpanm -v --installdeps SDL
+  - perl ./Build.PL
+  - ./Build
+  - sudo ./Build install
+
+install:
+script: prove
