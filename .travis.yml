@@ -9,6 +9,7 @@ perl:
 
 before_install:
 # install Alien:SDL
+  - sudo dpkg -l 
   - sudo apt-get install automake
   - git clone https://github.com/PerlGameDev/Alien-SDL
   - cd Alien-SDL
@@ -28,4 +29,4 @@ install:
 script: prove -v
 
 notifications:
-  irc: irc.perl.org#sdl
+#  irc: irc.perl.org#sdl
